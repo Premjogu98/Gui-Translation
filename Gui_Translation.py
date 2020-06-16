@@ -68,7 +68,7 @@ class MyFrame(wx.Frame):
         self.Select_Source_lbl = wx.StaticText(self.panel,label = "Select Source : ",pos=(340, 14))
         self.Select_Source_lbl.SetFont(font)
 
-        f = open("D:\\Translation EXE\\source_list.txt", "r")
+        f = open(f"{Global_var.Drive}:\\Translation EXE\\source_list.txt", "r")
         f = f.read()
         Source_list = str(f).splitlines()
         self.combo = wx.ComboBox(self.panel,choices = Source_list,pos=(450, 10),size=(250, 25))
@@ -94,7 +94,7 @@ class MyFrame(wx.Frame):
     def Add_Source(self,event):
         Source_Name = self.Source_TB.GetValue()
         if str(Source_Name) != '':
-            f = open("D:\\Translation EXE\\source_list.txt", "a")
+            f = open(f"{Global_var.Drive}:\\Translation EXE\\source_list.txt", "a")
             f.write(f'{str(Source_Name)}\n')
             f.close()
             print(f'{str(Source_Name)} This Source Name & Server added On Text File')
