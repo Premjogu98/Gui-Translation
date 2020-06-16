@@ -1,5 +1,6 @@
 import wx
 import sys, os
+import Global_var
 
 class MyFrame(wx.Frame):    
     def __init__(self):
@@ -67,9 +68,11 @@ class MyFrame(wx.Frame):
             self.Source_btn.SetBackgroundColour('')
         
     def GO_btn(self,event):
-        Drop_Value = self.combo.GetValue()
+        Drop_Value:str = self.combo.GetValue()
         if str(Drop_Value) != '':
             print(f'Selected Dropdown Value : {Drop_Value}')
+            Global_var.Source_Name = Drop_Value.partition("~")[0]
+            Global_var.Server = Drop_Value.partition("~")[2]	
         else:
             wx.MessageBox(' -_- Plaese Select Dropdown Value  -_- ', 'Gui Translation',
                           wx.OK | wx.ICON_ERROR)
