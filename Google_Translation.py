@@ -10,11 +10,11 @@ import Global_var
 
 app = wx.App()
 
-browser = webdriver.Chrome(executable_path=str("D:\\Translation EXE\\chromedriver.exe"))
+browser = webdriver.Chrome(executable_path=str(f"{Global_var.Drive}:\\Translation EXE\\chromedriver.exe"))
 browser.maximize_window()
 browser.get(
     """https://chrome.google.com/webstore/detail/browsec-vpn-free-and-unli/omghfjlpggmjjaagoclmmobgdodcjboh?hl=en" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;url=https://chrome.google.com/webstore/detail/browsec-vpn-free-and-unli/omghfjlpggmjjaagoclmmobgdodcjboh%3Fhl%3Den&amp;ved=2ahUKEwivq8rjlcHmAhVtxzgGHZ-JBMgQFjAAegQIAhAB""")
-wx.MessageBox(' -_-  Add Extension and Then Click On OK BUTTON -_- ', '100 Server EXE Google Translation', wx.OK | wx.ICON_ERROR)
+wx.MessageBox(' -_-  Add Extension and Then Click On OK BUTTON -_- ', 'GUI Google Translation', wx.OK | wx.ICON_ERROR)
 time.sleep(5)
 browser.get('https://translate.google.com/')
 
@@ -64,6 +64,7 @@ def check_translated_textarea():
         tr_val = ''
         for tr_box in browser.find_elements_by_xpath('//*[@class="tlid-translation translation"]'):
             tr_val = 'Exist'
+            print(tr_val)
             time.sleep(1)
         if tr_val == '':
             tr_clear = True
@@ -99,21 +100,17 @@ def language_detect():
 
 def tarnslation():
     try:
-        f = open("E:\\Translation EXE\\source_list.txt", "r")
-        source_list = f.read()
-        source_list = source_list.splitlines()
-        sources = str(source_list)
-        Source_name = sources.replace('[', '').replace(']', '')
 
         trasns = connection()
         cur = trasns.cursor()
         cur.execute(
-            f"SELECT * FROM Final_Tenders WHERE is_english = '1' AND `source` IN ({str(Source_name)}) ORDER BY file_id ASC")  # 0 = English, 1 = Non-English
+            f"SELECT * FROM Final_Tenders WHERE is_english = '1' AND `source` IN ({str(Global_var.Source_Name)}) ORDER BY file_id ASC")  # 0 = English, 1 = Non-English
         rows = cur.fetchall()
 
         if len(rows) == 0:
-            wx.MessageBox(' -_- (100) No Tender Available For Translation -_- ', '100 Server EXE Google Translation ',
+            wx.MessageBox(' -_-  No Tender Available For Translation -_- ', 'GUI Google Translation ',
                           wx.OK | wx.ICON_INFORMATION)
+            time.sleep(2)
             browser.close()
             sys.exit()
 
@@ -159,7 +156,7 @@ def tarnslation():
                         if is_available == 1:
                             wx.MessageBox(
                                 'Something Went Wrong Please Refresh Google Translation Page Then Click On -_- OK -_- ',
-                                '100 Server EXE Google Translation ', wx.OK | wx.ICON_WARNING)
+                                'GUI Google Translation ', wx.OK | wx.ICON_WARNING)
                         else:
                             time.sleep(5)
                             for en_notice_no in browser.find_elements_by_xpath(
@@ -187,7 +184,7 @@ def tarnslation():
                         if is_available == 1:
                             wx.MessageBox(
                                 'Something Went Wrong Please Refresh Google Translation Page Then Click On -_- OK -_- ',
-                                '100 Server EXE Google Translation ', wx.OK | wx.ICON_WARNING)
+                                'GUI Google Translation ', wx.OK | wx.ICON_WARNING)
                         else:
                             time.sleep(1)
                             if If_other_Than_English == True:
@@ -221,7 +218,7 @@ def tarnslation():
                         if is_available == 1:
                             wx.MessageBox(
                                 'Something Went Wrong Please Refresh Google Translation Page Then Click On -_- OK -_- ',
-                                '100 Server EXE Google Translation ', wx.OK | wx.ICON_WARNING)
+                                'GUI Google Translation ', wx.OK | wx.ICON_WARNING)
                         else:
                             time.sleep(1)
                             if If_other_Than_English == True:
@@ -252,7 +249,7 @@ def tarnslation():
                         if is_available == 1:
                             wx.MessageBox(
                                 'Something Went Wrong Please Refresh Google Translation Page Then Click On -_- OK -_- ',
-                                '100 Server EXE Google Translation ', wx.OK | wx.ICON_WARNING)
+                                'GUI Google Translation ', wx.OK | wx.ICON_WARNING)
                         else:
                             time.sleep(1)
                             if If_other_Than_English == True:
@@ -286,7 +283,7 @@ def tarnslation():
                         if is_available == 1:
                             wx.MessageBox(
                                 'Something Went Wrong Please Refresh Google Translation Page Then Click On -_- OK -_- ',
-                                '100 Server EXE Google Translation ', wx.OK | wx.ICON_WARNING)
+                                'GUI Google Translation ', wx.OK | wx.ICON_WARNING)
                         else:
                             time.sleep(1)
                             if If_other_Than_English == True:
@@ -344,6 +341,11 @@ def tarnslation():
                         time.sleep(2)
 
                 tarnslation()
+                wx.MessageBox('All Process Done','GUI Google Translation ', wx.OK | wx.ICON_INFORMATION)
+                time.sleep(2)
+                browser.close()
+                sys.exit()
+                    
                 time.sleep(2)
             except Exception as e:
                 exc_type, exc_obj, exc_tb = sys.exc_info()
@@ -363,7 +365,7 @@ def tarnslation():
               exc_tb.tb_lineno)
         time.sleep(2)
         wx.MessageBox(' -_- (ERROR ON MAIN EXCEPTION) -_- ',
-                      '100 Server EXE Google Translation ',
+                      'GUI Google Translation ',
                       wx.OK | wx.ICON_ERROR)
         time.sleep(2)
         browser.close()
