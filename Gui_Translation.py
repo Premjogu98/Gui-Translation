@@ -2,7 +2,55 @@ import wx
 import sys, os
 import Global_var
 
-class MyFrame(wx.Frame):    
+class MyFrame1(wx.Frame):    
+    def __init__(self):
+        super().__init__(parent=None, title='Drive',pos = (100,150), size =(500,130),style = wx.DEFAULT_FRAME_STYLE & ~wx.MAXIMIZE_BOX ^ wx.RESIZE_BORDER)
+        self.panel = wx.Panel(self)
+        self.Select_Drive = wx.StaticText(self.panel,label = "Select Drive : ",pos=(13, 30))
+        font = wx.Font(12, wx.DECORATIVE, wx.ITALIC, wx.NORMAL)
+        self.Select_Drive.SetFont(font)
+        drive = ['D','E']
+        self.Select_Drive_drop = wx.ComboBox(self.panel,choices = drive,pos=(130, 29),size=(80, 25))
+        font1 = wx.Font(11, wx.DECORATIVE, wx.ITALIC, wx.NORMAL)
+        self.Select_Drive_drop.SetFont(font1)
+
+        self.Go_btn = wx.Button(self.panel, label='GO', pos=(250, 30),style=wx.NO_BORDER)
+        font = wx.Font(10, wx.DECORATIVE, wx.ITALIC, wx.NORMAL)
+        self.Go_btn.SetFont(font)
+        self.Go_btn.Bind(wx.EVT_BUTTON, self.go_fun)
+        self.Go_btn.SetForegroundColour('Black')
+        self.Go_btn.SetBackgroundColour('Green')
+
+        self.Exit_btn = wx.Button(self.panel, label='EXIT', pos=(350, 30),style=wx.NO_BORDER)
+        font = wx.Font(10, wx.DECORATIVE, wx.ITALIC, wx.NORMAL)
+        self.Exit_btn.SetFont(font)
+        self.Exit_btn.Bind(wx.EVT_BUTTON, self.exit_fun)
+        self.Exit_btn.SetForegroundColour('White')
+        self.Exit_btn.SetBackgroundColour('Red')
+
+        self.Show()
+    def go_fun(self,event):
+        drive:str = self.Select_Drive_drop.GetValue()
+        if drive != '':
+            Global_var.Drive = drive
+            self.Destroy()
+            frame = MyFrame()
+        else:
+            wx.MessageBox(' -_- Please Select Drive  -_- ', 'Gui Translation',
+                          wx.OK | wx.ICON_ERROR)
+
+    def exit_fun(self,event):
+        dlg = wx.MessageDialog(None, "Kya Aap Ko yaha Se Prasthan (EXIT) karna Hai !!!!", 'Gui Translation', wx.YES_NO | wx.ICON_WARNING)
+        result = dlg.ShowModal()
+        if result == wx.ID_YES:
+            self.Destroy()
+            sys.exit()
+        else:
+            pass
+
+
+class MyFrame(wx.Frame):   
+     
     def __init__(self):
         super().__init__(parent=None, title='Google Translation GUI',pos = (100,150), size =(950,130),style = wx.DEFAULT_FRAME_STYLE & ~wx.MAXIMIZE_BOX ^ wx.RESIZE_BORDER)
         self.panel = wx.Panel(self)
@@ -72,7 +120,7 @@ class MyFrame(wx.Frame):
         if str(Drop_Value) != '':
             print(f'Selected Dropdown Value : {Drop_Value}')
             Global_var.Source_Name = Drop_Value.partition("~")[0]
-            Global_var.Server = Drop_Value.partition("~")[2]	
+            Global_var.Server = Drop_Value.partition("~")[2]
         else:
             wx.MessageBox(' -_- Plaese Select Dropdown Value  -_- ', 'Gui Translation',
                           wx.OK | wx.ICON_ERROR)
@@ -88,5 +136,5 @@ class MyFrame(wx.Frame):
 
 if __name__ == '__main__':
     app = wx.App()
-    frame = MyFrame()
+    frame = MyFrame1()
     app.MainLoop()
