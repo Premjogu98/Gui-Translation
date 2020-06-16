@@ -138,12 +138,13 @@ class MyFrame(wx.Frame):
         for i, self.cb in enumerate(self.cb_list):
             if self.cb.GetValue():
                 Source_name = self.cb.GetLabelText()
-                Source_name = Source_name.partition("~")[0].strip()
+                Source_name1 = Source_name.partition("~")[0].strip()
                 Global_var.Server = Source_name.partition("~")[2].strip()
-                source_name_list.append(Source_name)
+                source_name_list.append(Source_name1)
         Global_var.Source_Name = str(source_name_list).replace('[', '').replace(']', '')
         if Global_var.Source_Name !="":
             print(f'Selected Source : {Global_var.Source_Name}')
+            print(Global_var.Server)
             self.Destroy()
             
         else:

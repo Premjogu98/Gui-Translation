@@ -104,7 +104,7 @@ def tarnslation():
         trasns = connection()
         cur = trasns.cursor()
         cur.execute(
-            f"SELECT * FROM Final_Tenders WHERE is_english = '1' AND `source` IN ('{str(Global_var.Source_Name)}') ORDER BY file_id ASC")  # 0 = English, 1 = Non-English
+            f"SELECT * FROM Final_Tenders WHERE is_english = '1' AND `source` IN ({str(Global_var.Source_Name)}) ORDER BY file_id ASC")  # 0 = English, 1 = Non-English
         rows = cur.fetchall()
 
         if len(rows) == 0:
