@@ -10,7 +10,7 @@ import Global_var
 
 app = wx.App()
 
-browser = webdriver.Chrome(executable_path=str(f"{Global_var.Drive}:\\Translation EXE\\chromedriver.exe"))
+browser = webdriver.Chrome(executable_path=str(f"D:\\Translation EXE\\chromedriver.exe"))
 browser.maximize_window()
 browser.get(
     """https://chrome.google.com/webstore/detail/browsec-vpn-free-and-unli/omghfjlpggmjjaagoclmmobgdodcjboh?hl=en" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;url=https://chrome.google.com/webstore/detail/browsec-vpn-free-and-unli/omghfjlpggmjjaagoclmmobgdodcjboh%3Fhl%3Den&amp;ved=2ahUKEwivq8rjlcHmAhVtxzgGHZ-JBMgQFjAAegQIAhAB""")
@@ -24,10 +24,10 @@ def connection():
     a3 = 0
     while a3 == 0:
         try:
-            connection = pymysql.connect(host=f'192.168.0.{Global_var.Server}',
+            connection = pymysql.connect(host='185.142.34.92',
                                          user='ams',
-                                         password='amsbind',
-                                         db='AMS_Master_FinalDB',
+                                         password='TgdRKAGedt%h',
+                                         db='tenders_db',
                                          charset='utf8',
                                          cursorclass=pymysql.cursors.DictCursor)
             return connection
@@ -104,7 +104,7 @@ def tarnslation():
         trasns = connection()
         cur = trasns.cursor()
         cur.execute(
-            f"SELECT * FROM Final_Tenders WHERE is_english = '1' AND `source` IN ({str(Global_var.Source_Name)}) ORDER BY file_id ASC")  # 0 = English, 1 = Non-English
+            f"SELECT * FROM l2l_tenders_tbl WHERE is_english = '1' AND `source` IN ({str(Global_var.Source_Name)}) ORDER BY Posting_Id ASC")  # 0 = English, 1 = Non-English
         rows = cur.fetchall()
 
         if len(rows) == 0:
@@ -319,7 +319,7 @@ def tarnslation():
                             try:
                                 trasns = connection()
                                 cur = trasns.cursor()
-                                Update_Website_Status = f"UPDATE Final_Tenders SET is_english = '0', notice_no='{en_notice_no}',purchaser_name='{en_purchaser}',purchaser_address='{en_address}',description='{en_title}',tender_details='{en_description}' WHERE Posting_Id = '{id}'"
+                                Update_Website_Status = f"UPDATE l2l_tenders_tbl SET is_english = '0', notice_no='{en_notice_no}',purchaser_name='{en_purchaser}',purchaser_address='{en_address}',description='{en_title}',tender_details='{en_description}' WHERE Posting_Id = '{id}'"
                                 cur.execute(Update_Website_Status)
                                 trasns.commit()
                                 a = True
@@ -339,7 +339,7 @@ def tarnslation():
                         time.sleep(2)
                         browser.delete_all_cookies()
                         time.sleep(2)
-
+                print(f'Translation Completed : {count}  / {len(rows)}\n')
                 wx.MessageBox('All Process Done','GUI Google Translation ', wx.OK | wx.ICON_INFORMATION)
                 time.sleep(2)
                 browser.close()
