@@ -77,18 +77,20 @@ class MyFrame(wx.Frame):
      
     def __init__(self):
         super().__init__(parent=None, title='Google Translation GUI',pos = (100,150), size =(800,500) ,style = wx.DEFAULT_FRAME_STYLE & ~wx.MAXIMIZE_BOX ^ wx.RESIZE_BORDER)
-        self.panel = wx.Panel(self,size=(800, 75), pos=(0, 0), style=wx.SIMPLE_BORDER)
+        self.panel = wx.Panel(self,size=(800, 50), pos=(0, 0), style=wx.SIMPLE_BORDER)
         self.bSizer = wx.BoxSizer(wx.VERTICAL)
         self.bSizer1 = wx.BoxSizer(wx.HORIZONTAL)
-        self.scroll = wx.lib.scrolledpanel.ScrolledPanel(self, -1, size=(767, 365), pos=(7, 82),
+        self.scroll = wx.lib.scrolledpanel.ScrolledPanel(self, -1, size=(770, 400), pos=(7, 55),
                                                          style=wx.SIMPLE_BORDER)
         self.scroll.SetupScrolling()
         self.scroll.SetBackgroundColour('#FFFFFF')
         self.scroll.SetForegroundColour('Black')
         self.scroll.SetSizer(self.bSizer)
 
-        # self.Source_lbl = wx.StaticText(self.panel,label = "Add Source Name Like This -> SourcName~Server",pos=(13, 40))
-        # self.Source_lbl.SetForegroundColour('Red')
+        self.Source_lbl = wx.StaticText(self.panel,label = "TendersOnTime - Google Translation",pos=(13, 8))
+        self.Source_lbl.SetForegroundColour('Red')
+        font = wx.Font(20, wx.DECORATIVE, wx.ITALIC, wx.NORMAL)
+        self.Source_lbl.SetFont(font)
 
         # self.Source_TB = wx.TextCtrl(self.panel, pos=(110, 10),size=(200, 25))
 
