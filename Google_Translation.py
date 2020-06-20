@@ -10,7 +10,7 @@ import Global_var
 
 app = wx.App()
 
-browser = webdriver.Chrome(executable_path=str(f"D:\\Translation EXE\\chromedriver.exe"))
+browser = webdriver.Chrome(executable_path=str(f"C:\\Translation EXE\\chromedriver.exe"))
 browser.maximize_window()
 browser.get(
     """https://chrome.google.com/webstore/detail/browsec-vpn-free-and-unli/omghfjlpggmjjaagoclmmobgdodcjboh?hl=en" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;url=https://chrome.google.com/webstore/detail/browsec-vpn-free-and-unli/omghfjlpggmjjaagoclmmobgdodcjboh%3Fhl%3Den&amp;ved=2ahUKEwivq8rjlcHmAhVtxzgGHZ-JBMgQFjAAegQIAhAB""")
@@ -312,6 +312,8 @@ def tarnslation():
                     en_title = en_title.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</")
                     en_description = en_description.replace("'", "''").replace("< ", "<").replace(" >", ">").replace(
                         "</ ", "</")
+                    if len(en_title) > 250:
+                        en_title = en_title[:247] + '...'
 
                     if en_notice_no_done == True and en_purchaser_done == True and en_address_done == True and en_title_done == True and en_description_done == True:
                         a = False
@@ -324,7 +326,7 @@ def tarnslation():
                                 trasns.commit()
                                 a = True
                             except Exception as e:
-                                print(f'ERROR ON QUERY EXCEPTION: {e}')
+                                print(f'ERROR ON UPDATE QUERY EXCEPTION: {e}')
                                 trasns.close()
                                 a = False
                                 time.sleep(5)
@@ -339,7 +341,8 @@ def tarnslation():
                         time.sleep(2)
                         browser.delete_all_cookies()
                         time.sleep(2)
-                print(f'Translation Completed : {count}  / {len(rows)}\n')
+                        print(f'Translation Completed : {count}  / {len(rows)}\n')
+
                 wx.MessageBox('All Process Done','GUI Google Translation ', wx.OK | wx.ICON_INFORMATION)
                 time.sleep(2)
                 browser.close()
