@@ -4,6 +4,7 @@ import Global_var
 import wx.adv
 import wx.lib.scrolledpanel
 import pymysql.cursors
+import time
 
 # class MyFrame1(wx.Frame):    
 #     def __init__(self):
@@ -102,13 +103,19 @@ class MyFrame(wx.Frame):
         # self.Select_Source_lbl = wx.StaticText(self.panel,label = "Select Source : ",pos=(340, 14))
         # self.Select_Source_lbl.SetFont(font)
 
-        # f = open(f"C:\\Translation EXE\\source_list.txt", "r")
-        # f = f.read()
-        # Source_list = str(f).splitlines()
+        f = open(f"C:\\Translation EXE\\source_list.txt", "r")
+        f_source_list = f.read()
+        f_source_list = f_source_list.splitlines()
+        sources = str(f_source_list)
+        User_Source_list = sources.replace('[', '').replace(']', '')
         trasns = connection()
         cur = trasns.cursor()
-        cur.execute("SELECT source,COUNT(source) AS `count` FROM l2l_tenders_tbl WHERE `is_english` = '1' GROUP BY source ORDER BY COUNT(source) DESC")  # 0 = English, 1 = Non-English
+        cur.execute(f"SELECT source,COUNT(source) AS `count` FROM l2l_tenders_tbl WHERE `is_english` = '1' AND source IN ({User_Source_list}) GROUP BY source ORDER BY COUNT(source) DESC")  # 0 = English, 1 = Non-English
         rows = cur.fetchall()
+        if len(rows) == 0:
+            wx.MessageBox(' -_-  No Tender Available For Translation from given sources in source_list.txt -_- ', 'GUI Google Translation ',wx.OK | wx.ICON_INFORMATION)
+            time.sleep(2)
+            sys.exit()
         Source_list = []
         for row in rows:
             source_val = "%s" % (row["source"])

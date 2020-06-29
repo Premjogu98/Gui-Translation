@@ -70,6 +70,10 @@
    'c:\\program '
    'files\\python37\\lib\\site-packages\\pywin32_system32\\pywintypes37.dll',
    'BINARY'),
+  ('wxbase30u_vc140_x64.dll',
+   'c:\\program '
+   'files\\python37\\lib\\site-packages\\wx\\wxbase30u_vc140_x64.dll',
+   'BINARY'),
   ('wxmsw30u_core_vc140_x64.dll',
    'c:\\program '
    'files\\python37\\lib\\site-packages\\wx\\wxmsw30u_core_vc140_x64.dll',
@@ -78,43 +82,39 @@
    'c:\\program '
    'files\\python37\\lib\\site-packages\\wx\\wxmsw30u_adv_vc140_x64.dll',
    'BINARY'),
-  ('wxbase30u_vc140_x64.dll',
-   'c:\\program '
-   'files\\python37\\lib\\site-packages\\wx\\wxbase30u_vc140_x64.dll',
-   'BINARY'),
-  ('MSVCP140.dll',
-   'c:\\program files\\python37\\lib\\site-packages\\wx\\MSVCP140.dll',
-   'BINARY'),
   ('wxbase30u_net_vc140_x64.dll',
    'c:\\program '
    'files\\python37\\lib\\site-packages\\wx\\wxbase30u_net_vc140_x64.dll',
    'BINARY'),
+  ('MSVCP140.dll',
+   'c:\\program files\\python37\\lib\\site-packages\\wx\\MSVCP140.dll',
+   'BINARY'),
   ('base_library.zip',
    'D:\\PycharmProjects\\Gui_Translation\\build\\Gui_Translation\\base_library.zip',
    'DATA'),
-  ('selenium\\webdriver\\firefox\\amd64\\x_ignore_nofocus.so',
+  ('selenium\\webdriver\\firefox\\x86\\x_ignore_nofocus.so',
    'c:\\program '
-   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\firefox\\amd64\\x_ignore_nofocus.so',
+   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\firefox\\x86\\x_ignore_nofocus.so',
    'DATA'),
   ('selenium\\webdriver\\firefox\\webdriver.xpi',
    'c:\\program '
    'files\\python37\\lib\\site-packages\\selenium\\webdriver\\firefox\\webdriver.xpi',
    'DATA'),
-  ('selenium\\webdriver\\remote\\getAttribute.js',
+  ('selenium\\webdriver\\remote\\isDisplayed.js',
    'c:\\program '
-   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\remote\\getAttribute.js',
+   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\remote\\isDisplayed.js',
+   'DATA'),
+  ('selenium\\webdriver\\firefox\\amd64\\x_ignore_nofocus.so',
+   'c:\\program '
+   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\firefox\\amd64\\x_ignore_nofocus.so',
    'DATA'),
   ('selenium\\webdriver\\firefox\\webdriver_prefs.json',
    'c:\\program '
    'files\\python37\\lib\\site-packages\\selenium\\webdriver\\firefox\\webdriver_prefs.json',
    'DATA'),
-  ('selenium\\webdriver\\remote\\isDisplayed.js',
+  ('selenium\\webdriver\\remote\\getAttribute.js',
    'c:\\program '
-   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\remote\\isDisplayed.js',
-   'DATA'),
-  ('selenium\\webdriver\\firefox\\x86\\x_ignore_nofocus.so',
-   'c:\\program '
-   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\firefox\\x86\\x_ignore_nofocus.so',
+   'files\\python37\\lib\\site-packages\\selenium\\webdriver\\remote\\getAttribute.js',
    'DATA'),
   ('Gui_Translation.exe.manifest',
    'D:\\PycharmProjects\\Gui_Translation\\build\\Gui_Translation\\Gui_Translation.exe.manifest',

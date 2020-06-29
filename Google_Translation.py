@@ -75,20 +75,25 @@ def check_translated_textarea():
 def click_on_tryagain():
     print(' -_-  Please wait browser will be refresh automatically after 60 SEC  -_- ')
     time.sleep(60)
+    try_btn_found = False
     try:
-        for try_again_btn in browser.find_elements_by_xpath(
-                '//*[@class="tlid-result-container-error-button translation-error-button"]'):
+        for try_again_btn in browser.find_elements_by_xpath('//*[@class="tlid-result-container-error-button translation-error-button"]'):
             try_again_btn.click()
+            try_btn_found = True
             break
     except:
         pass
+    if try_btn_found == False:
+        browser.refresh()
+        for i in browser.find_elements_by_xpath('//*[@id="source"]'):
+            i.clear()
+            break
     time.sleep(5)
 
 
 def language_detect():
     If_other_Than_English = True
-    for language_detect in browser.find_elements_by_xpath(
-            '//*[@class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-right jfk-button-checked"]'):
+    for language_detect in browser.find_elements_by_xpath('//*[@class="goog-inline-block jfk-button jfk-button-standard jfk-button-collapse-right jfk-button-checked"]'):
         language_detect = language_detect.get_attribute('innerText').lower()
         if 'english' not in language_detect:
             If_other_Than_English = True
@@ -303,11 +308,11 @@ def tarnslation():
 
                 print(f'Details : {en_description}')
 
-                en_notice_no = en_notice_no.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</")
-                en_purchaser = en_purchaser.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</")
-                en_address = en_address.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</")
-                en_title = en_title.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</")
-                en_description = en_description.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</")
+                en_notice_no = en_notice_no.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</").replace("\\", "\\\\")
+                en_purchaser = en_purchaser.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</").replace("\\", "\\\\")
+                en_address = en_address.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</").replace("\\", "\\\\")
+                en_title = en_title.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</").replace("\\", "\\\\")
+                en_description = en_description.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</").replace("\\", "\\\\")
 
                 if len(en_title) > 250:
                     en_title = en_title[:247] + '...'
@@ -334,7 +339,7 @@ def tarnslation():
                 print(f'Translation Completed : {count}  / {len(rows)}\n')
                 # Exception_loop = False
                 Tender_count_for_Refresh += 1
-                if Tender_count_for_Refresh == 20:
+                if Tender_count_for_Refresh == 100:
                     Tender_count_for_Refresh = 0
                     clear = lambda: os.system('cls')  # Clear command Prompt
                     clear()
