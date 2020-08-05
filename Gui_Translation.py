@@ -106,11 +106,16 @@ class MyFrame(wx.Frame):
         f = open(f"C:\\Translation EXE\\source_list.txt", "r")
         f_source_list = f.read()
         f_source_list = f_source_list.splitlines()
-        sources = str(f_source_list)
+        sources_list = []
+        for i in f_source_list:
+            sources_list.append(i.strip())
+        sources = str(sources_list)
         User_Source_list = sources.replace('[', '').replace(']', '')
         trasns = connection()
         cur = trasns.cursor()
         cur.execute(f"SELECT source,COUNT(source) AS `count` FROM l2l_tenders_tbl WHERE `is_english` = '1' AND source IN ({User_Source_list}) GROUP BY source ORDER BY COUNT(source) DESC")  # 0 = English, 1 = Non-English
+        # cur.execute(f"SELECT * FROM `tenders_db`.`l2l_tenders_tbl` WHERE Posting_Id='523417'")  # 0 = English, 1 = Non-English
+
         rows = cur.fetchall()
         if len(rows) == 0:
             wx.MessageBox(' -_-  No Tender Available For Translation from given sources in source_list.txt -_- ', 'GUI Google Translation ',wx.OK | wx.ICON_INFORMATION)
@@ -119,8 +124,8 @@ class MyFrame(wx.Frame):
         Source_list = []
         for row in rows:
             source_val = "%s" % (row["source"])
-            count_val = "%s" % ((row["count"]))
-            Source_list.append(f'{source_val} = {count_val}')
+            # count_val = "%s" % ((row["count"]))
+            Source_list.append(f'{source_val}')
         self.Panel_Height = 2
         self.cb_list = []
         for source in Source_list:

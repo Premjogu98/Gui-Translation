@@ -18,7 +18,6 @@ wx.MessageBox(' -_-  Add Extension and Then Click On OK BUTTON -_- ', 'GUI Googl
 time.sleep(5)
 browser.get('https://translate.google.com/')
 
-
 def connection():
     connection = ''
     a3 = 0
@@ -73,8 +72,8 @@ def check_translated_textarea():
 
 
 def click_on_tryagain():
-    print(' -_-  Please wait browser will be refresh automatically after 60 SEC  -_- ')
-    time.sleep(60)
+    print(' -_-  Please wait browser will be refresh automatically after 30 SEC  -_- ')
+    time.sleep(30)
     try_btn_found = False
     try:
         for try_again_btn in browser.find_elements_by_xpath('//*[@class="tlid-result-container-error-button translation-error-button"]'):
@@ -85,10 +84,11 @@ def click_on_tryagain():
         pass
     if try_btn_found == False:
         browser.refresh()
+        time.sleep(5)
         for i in browser.find_elements_by_xpath('//*[@id="source"]'):
             i.clear()
             break
-    time.sleep(5)
+    time.sleep(2)
 
 
 def language_detect():
@@ -108,8 +108,8 @@ def tarnslation():
 
         trasns = connection()
         cur = trasns.cursor()
-        cur.execute(
-            f"SELECT * FROM l2l_tenders_tbl WHERE is_english = '1' AND `source` IN ({str(Global_var.Source_Name)}) ORDER BY Posting_Id ASC")  # 0 = English, 1 = Non-English
+        # cur.execute(f"SELECT * FROM `tenders_db`.`l2l_tenders_tbl` WHERE Posting_Id='523417'")  # For test
+        cur.execute(f"SELECT * FROM l2l_tenders_tbl WHERE is_english = '1' AND `source` IN ({str(Global_var.Source_Name)}) ORDER BY Posting_Id ASC")  # 0 = English, 1 = Non-English
         rows = cur.fetchall()
 
         if len(rows) == 0:
@@ -147,6 +147,7 @@ def tarnslation():
                 en_title_done = False
                 en_description_done = False
 
+                print(f'Selected Source : {Global_var.Source_Name}')
                 print(f'Posting_Id : {id}')
                 print(f'Source : {source}')
 
@@ -154,6 +155,8 @@ def tarnslation():
                     is_available = 1
                     for i in browser.find_elements_by_xpath('//*[@id="source"]'):
                         i.clear()
+                        notice_no = re.sub('\s+', ' ', notice_no)
+                        notice_no = notice_no.replace('<br>','<br>\n').replace('<BR>','<br>\n').replace('<Br>','<br>\n')
                         check_translated_textarea()
                         i.send_keys(str(notice_no))
                         is_available = 0
@@ -180,6 +183,8 @@ def tarnslation():
                 if purchaser != '':
                     for i in browser.find_elements_by_xpath('//*[@id="source"]'):
                         i.clear()
+                        purchaser = re.sub('\s+', ' ', purchaser)
+                        purchaser = purchaser.replace('<br>','<br>\n').replace('<BR>','<br>\n').replace('<Br>','<br>\n')
                         check_translated_textarea()
                         i.send_keys(str(purchaser))
                         time.sleep(5)
@@ -214,6 +219,8 @@ def tarnslation():
                 if address !='':
                     for i in browser.find_elements_by_xpath('//*[@id="source"]'):
                         i.clear()
+                        address = re.sub('\s+', ' ', address)
+                        address = address.replace('<br>','<br>\n').replace('<BR>','<br>\n').replace('<Br>','<br>\n')
                         check_translated_textarea()
                         i.send_keys(str(address))
                         time.sleep(4)
@@ -245,6 +252,8 @@ def tarnslation():
                 if title != "":
                     for i in browser.find_elements_by_xpath('//*[@id="source"]'):
                         i.clear()
+                        title = re.sub('\s+', ' ', title)
+                        title = title.replace('<br>','<br>\n').replace('<BR>','<br>\n').replace('<Br>','<br>\n')
                         check_translated_textarea()
                         i.send_keys(str(title))
                         time.sleep(5)
@@ -277,6 +286,8 @@ def tarnslation():
                 if description != "":
                     for i in browser.find_elements_by_xpath('//*[@id="source"]'):
                         i.clear()
+                        description = re.sub('\s+', ' ', description)
+                        description = description.replace('<br>','<br>\n').replace('<BR>','<br>\n').replace('<Br>','<br>\n')
                         check_translated_textarea()
                         if len(description) >= 1200:
                             description = description[:1200] + '...'
@@ -315,10 +326,24 @@ def tarnslation():
                 en_description = en_description.replace("'", "''").replace("< ", "<").replace(" >", ">").replace("</ ", "</").replace("\\", "\\\\")
 
                 if len(en_title) > 250:
-                    en_title = en_title[:247] + '...'
+                    en_title = en_title[:246]
+                    suffix = "'" 
+                    suffix2 = "''"
+                    if suffix2 and en_title.endswith(suffix2):
+                        pass
+                    elif suffix and en_title.endswith(suffix):
+                        en_title = en_title[:-len(suffix)]
+                    en_title = en_title + '...'
 
                 if len(en_address) > 500:
-                    en_address = en_address[:497] + '...'
+                    en_address = en_address[:500]
+                    suffix = "'"
+                    suffix2 = "''"
+                    if suffix2 and en_address.endswith(suffix2):
+                        pass
+                    elif suffix and en_address.endswith(suffix):
+                        en_address = en_address[:-len(suffix)]
+                    en_address = en_address + '...'
 
                 if en_notice_no_done == True and en_purchaser_done == True and en_address_done == True and en_title_done == True and en_description_done == True:
                     a = False
@@ -327,6 +352,7 @@ def tarnslation():
                             trasns = connection()
                             cur = trasns.cursor()
                             Update_Website_Status = f"UPDATE l2l_tenders_tbl SET is_english = '0', notice_no='{en_notice_no}',purchaser_name='{en_purchaser}',purchaser_address='{en_address}',description='{en_title}',tender_details='{en_description}' WHERE Posting_Id = '{id}'"
+                            print(Update_Website_Status)
                             cur.execute(Update_Website_Status)
                             trasns.commit()
                             a = True
@@ -359,11 +385,12 @@ def tarnslation():
                 time.sleep(2)
                 # Exception_loop = True
 
-        wx.MessageBox('All Process Done','GUI Google Translation ', wx.OK | wx.ICON_INFORMATION)
-        time.sleep(2)
-        browser.close()
-        sys.exit()
-        time.sleep(2)
+        # wx.MessageBox('All Process Done','GUI Google Translation ', wx.OK | wx.ICON_INFORMATION)
+        # time.sleep(2)
+        # browser.close()
+        # sys.exit()
+        # time.sleep(2)
+        tarnslation()
             
 
     except Exception as e:

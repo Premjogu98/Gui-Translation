@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['Gui_Translation.py'],
-             pathex=['D:\\PycharmProjects\\Gui_Translation'],
+             pathex=['F:\\Office Projects\\Gui_Translation'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True , icon='D:\\Google-Translate.ico')
+          console=True , icon='F:\\pyicon.ico')
